@@ -6,7 +6,7 @@
     <groupId>com.hortonworks.amstore</groupId>
     <artifactId>amstore-daemon</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>amstore-daemon</name>
 
     <dependencyManagement>
