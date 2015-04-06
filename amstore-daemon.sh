@@ -8,7 +8,7 @@ function usage() {
 
 function start() {
      nohup java -jar target/amstore-daemon-1.0.jar >> /var/log/amstore-daemon.log 2>&1 &
-     (ps -o pgid= "$!" | grep -o '[0-9]*') > /var/run/amstore-daemon.pid
+     echo "$!" > /var/run/amstore-daemon.pid
      cat  /var/run/amstore-daemon.pid
 }
 
