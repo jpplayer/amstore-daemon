@@ -5,21 +5,22 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
-public class MyResourceTest {
+public class AmstoreResourceTest {
 
     private HttpServer server;
     private WebTarget target;
 
     @Before
     public void setUp() throws Exception {
+    	MainService mainService = new MainService( );    	
         // start the server
-        server = Main.startServer();
+        server = Main.startServer( mainService.getBaseUri()  );
         // create the client
         Client c = ClientBuilder.newClient();
 
@@ -29,7 +30,7 @@ public class MyResourceTest {
         // --
         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
-        target = c.target(Main.BASE_URI);
+        target = c.target(mainService.getBaseUri());
     }
 
     @After
@@ -43,6 +44,6 @@ public class MyResourceTest {
     @Test
     public void testGetIt() {
         String responseMsg = target.path("myresource").request().get(String.class);
-        assertEquals("Got it!", responseMsg);
+        assertEquals("Hello!", responseMsg);
     }
 }

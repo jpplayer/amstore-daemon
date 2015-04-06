@@ -13,20 +13,21 @@ import java.net.URI;
  */
 public class Main {
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:5026/amstore/";
+//    public static final String BASE_URI = "http://0.0.0.0:5026/amstore/";
+
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
-    public static HttpServer startServer() {
+    public static HttpServer startServer( String baseUri ) {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.hortonworks.amstore.daemon package
         final ResourceConfig rc = new ResourceConfig().packages("com.hortonworks.amstore.daemon");
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create( baseUri ), rc);
     }
 
     /**
@@ -35,11 +36,21 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        final HttpServer server = startServer();
+    	MainService mainService;
+    	if( args.length == 3) {
+    		mainService = new MainService(args[1], args[2] );
+    	} else
+    	{
+    		mainService = new MainService( );    		
+    	}
+    	
+        final HttpServer server = startServer( mainService.getBaseUri() );
         System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-        System.in.read();
-        server.stop();
+                + "%sapplication.wadl\nHit CTRL-C to stop it...", mainService.getBaseUri()));
+//        System.in.read();
+//        server.stop();
     }
+    
+
 }
 

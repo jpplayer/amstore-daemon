@@ -10,10 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Root resource (exposed at "myresource" path)
+ * Root resource (exposed at "/" path)
  */
-@Path("myresource")
-public class MyResource {
+//@Path("myresource")
+@Path("")
+public class AmstoreResource {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -23,7 +24,15 @@ public class MyResource {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() throws IOException {
+    public String get() throws IOException {
+		return "Hello!";
+    }
+    
+    
+    @GET 
+	@Path("/restart-ambari")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String restartAmbari() throws IOException {
 
 		ProcessBuilder p = new ProcessBuilder();
 		p.command("nohup", "/etc/init.d/ambari-server", "restart");
@@ -35,4 +44,5 @@ public class MyResource {
 		// Runtime.getRuntime().exec("/etc/init.d/ambari-server restart");
 		return "Ambari restart initiated. Please wait.";
     }
+    
 }

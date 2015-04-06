@@ -5,5 +5,5 @@ command -v mvn >/dev/null 2>&1 || (curl -o /opt/maven.tar.gz http://psg.mtu.edu/
 command -v javac >/dev/null 2>&1 || yum install -y java-1.7.0-openjdk-devel
 
 cd "$old"
-mvn clean package
+mvn -DskipTests clean package
 
