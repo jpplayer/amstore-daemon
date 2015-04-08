@@ -7,6 +7,11 @@ function usage() {
 }
 
 function start() {
+     if [[ -f /var/run/amstore-daemon.pid ]]; then
+	echo "Amstore already running, stop it first."
+	exit 1
+     fi
+
      nohup java -jar target/amstore-daemon-1.0.jar >> /var/log/amstore-daemon.log 2>&1 &
      echo "$!" > /var/run/amstore-daemon.pid
      cat  /var/run/amstore-daemon.pid
