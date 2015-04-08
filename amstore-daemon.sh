@@ -13,8 +13,29 @@ function start() {
 }
 
 function stop() {
-      kill -- -$(cat /var/run/amstore-daemon.pid)
-      rm -f /var/run/amstore-daemon.pid
+      # Graceful
+      if [[ -f /var/run/amstore-daemon.pid ]]; then
+      	kill $(cat /var/run/amstore-daemon.pid)
+      	rm -f /var/run/amstore-daemon.pid
+      else # Not so graceful
+	APID=$(ps -ef | grep -v grep | grep amstore-daemon | awk '{print $2}')
+	kill -KILL $APID
+      fi
+}
+
+
+function status() {
+	if [[ -f /var/run/amstore-daemon.pid ]]; then
+		ps -ef | grep -v grep | grep $(cat /var/run/amstore-daemon.pid) > /dev/null 2>&1
+		if [[ $? == 0 ]]; then
+			echo 'Amstore is started'
+			exit 0
+		else
+			rm -f /var/run/amstore-daemon.pid
+		fi
+	fi
+	echo 'Amstore is stopped.'
+	exit 0
 }
 
 case "$1" in
@@ -29,8 +50,8 @@ case "$1" in
                 start
         ;;
         status)
-                ps -ef | grep $(cat /var/run/amstore.pid) || echo 'Amstore is stopped.'
-        ;;
+        	status
+	;;
         *)
                 usage
         ;;
