@@ -35,7 +35,8 @@ public class AmstoreResource {
     public String restartAmbari() throws IOException {
 
 		ProcessBuilder p = new ProcessBuilder();
-		p.command("nohup", "/etc/init.d/ambari-server", "restart");
+//		p.command("/etc/init.d/ambari-server", "restart");
+		p.command("/bin/bash", "/usr/local/amstore-daemon/ambari-restarter.sh");
 		p.redirectOutput(Redirect.appendTo(new File(
 				"/var/log/amstore-daemon.log")));
 		p.redirectErrorStream(true);

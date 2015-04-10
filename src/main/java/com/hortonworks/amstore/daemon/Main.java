@@ -35,7 +35,9 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+    	
     	MainService mainService;
     	if( args.length == 3) {
     		mainService = new MainService(args[1], args[2] );
@@ -44,9 +46,9 @@ public class Main {
     		mainService = new MainService( );    		
     	}
     	
-        final HttpServer server = startServer( mainService.getBaseUri() );
+        final HttpServer server = startServer( mainService.getBindUri() );
         System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit CTRL-C to stop it...", mainService.getBaseUri()));
+                + "%sapplication.wadl\n", mainService.getBindUri()));
 //        System.in.read();
 //        server.stop();
     }

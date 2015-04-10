@@ -20,7 +20,7 @@ public class AmstoreResourceTest {
     public void setUp() throws Exception {
     	MainService mainService = new MainService( );    	
         // start the server
-        server = Main.startServer( mainService.getBaseUri()  );
+        server = Main.startServer( mainService.getTestUri()  );
         // create the client
         Client c = ClientBuilder.newClient();
 
@@ -30,7 +30,7 @@ public class AmstoreResourceTest {
         // --
         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
-        target = c.target(mainService.getBaseUri());
+        target = c.target(mainService.getTestUri());
     }
 
     @After
@@ -43,7 +43,8 @@ public class AmstoreResourceTest {
      */
     @Test
     public void testGetIt() {
-        String responseMsg = target.path("myresource").request().get(String.class);
+    	System.out.println("Starting test.");
+        String responseMsg = target.path("").request().get(String.class);
         assertEquals("Hello!", responseMsg);
     }
 }

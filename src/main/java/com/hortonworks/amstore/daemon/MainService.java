@@ -14,7 +14,12 @@ public class MainService {
     	this.port = port;
     }
     
-    public String getBaseUri(){
+    public String getBindUri(){
     	return "http://" + host + ":" + port + "/amstore/";
+    }
+    
+    public String getTestUri(){
+    	return "http://localhost" + ":" + port + "/amstore/";
+    	
     }
 }

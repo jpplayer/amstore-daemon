@@ -1,4 +1,4 @@
-FOLDER="$PWD"
+FOLDER="/usr/local/amstore-daemon"
 
 function usage() {
         echo 'amstore-daemon start|stop|restart|status'
@@ -12,7 +12,7 @@ function start() {
 	exit 1
      fi
 
-     nohup java -jar target/amstore-daemon-1.0.jar >> /var/log/amstore-daemon.log 2>&1 &
+     nohup  java -cp "/usr/local/amstore-daemon/*" com.hortonworks.amstore.daemon.Main  >> /var/log/amstore-daemon.log 2>&1 &
      echo "$!" > /var/run/amstore-daemon.pid
      cat  /var/run/amstore-daemon.pid
 }
@@ -33,7 +33,7 @@ function status() {
 	if [[ -f /var/run/amstore-daemon.pid ]]; then
 		ps -ef | grep -v grep | grep $(cat /var/run/amstore-daemon.pid) > /dev/null 2>&1
 		if [[ $? == 0 ]]; then
-			echo 'Amstore is started'
+			echo 'Amstore daemon is started'
 			exit 0
 		else
 			rm -f /var/run/amstore-daemon.pid
