@@ -43,7 +43,7 @@ public class AmstoreResource {
 		p.start();
 
 		// Runtime.getRuntime().exec("/etc/init.d/ambari-server restart");
-		return "Ambari restart initiated. Please wait.";
+		return "Ambari restart initiated.";
     }
     
 }
