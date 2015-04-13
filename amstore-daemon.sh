@@ -48,12 +48,15 @@ function status() {
 
 case "$1" in
         start)
+		echo "Starting amstore-daemon"
                 start
         ;;
         stop)
+		echo "Stopping amstore-daemon"
                 stop
         ;;
         restart)
+		echo "Restarting amstore-daemon"
                 stop
                 start
         ;;
