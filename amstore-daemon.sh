@@ -8,8 +8,11 @@ function usage() {
 
 function start() {
      if [[ -f /var/run/amstore-daemon.pid ]]; then
-	echo "Amstore already running, stop it first."
-	exit 1
+	APID=$(ps -ef | grep -v grep | grep amstore-daemon | awk '{print $2}')
+	if [[ "$APID" != "" ]]; then 
+		echo "Amstore already running, stop it first."
+		exit 1
+	fi 
      fi
 
      nohup  java -cp "/usr/local/amstore-daemon/*" com.hortonworks.amstore.daemon.Main  >> /var/log/amstore-daemon.log 2>&1 &
