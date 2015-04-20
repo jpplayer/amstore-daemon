@@ -26,7 +26,7 @@ function stop() {
       	kill $(cat /var/run/amstore-daemon.pid)
       	rm -f /var/run/amstore-daemon.pid
       else # Not so graceful
-	APID=$(ps -ef | grep -v grep | grep amstore-daemon | awk '{print $2}')
+	APID=$(ps -ef | grep -v grep | grep com.hortonworks.amstore.daemon.Main | awk '{print $2}')
 	kill -KILL $APID
       fi
 }
@@ -48,12 +48,15 @@ function status() {
 
 case "$1" in
         start)
+		echo "Starting amstore-daemon"
                 start
         ;;
         stop)
+		echo "Stopping amstore-daemon"
                 stop
         ;;
         restart)
+		echo "Restarting amstore-daemon"
                 stop
                 start
         ;;
