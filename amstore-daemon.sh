@@ -1,4 +1,4 @@
-FOLDER="/usr/local/amstore-daemon"
+FOLDER="/usr/lib/amstore-daemon"
 
 function usage() {
         echo 'amstore-daemon start|stop|restart|status'
@@ -15,7 +15,7 @@ function start() {
 	fi 
      fi
 
-     nohup  java -cp "/usr/local/amstore-daemon/*" com.hortonworks.amstore.daemon.Main  >> /var/log/amstore-daemon.log 2>&1 &
+     nohup  java -cp "$FOLDER/*" com.hortonworks.amstore.daemon.Main  >> /var/log/amstore-daemon.log 2>&1 &
      echo "$!" > /var/run/amstore-daemon.pid
      cat  /var/run/amstore-daemon.pid
 }

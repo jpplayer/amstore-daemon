@@ -36,7 +36,7 @@ public class AmstoreResource {
 
 		ProcessBuilder p = new ProcessBuilder();
 //		p.command("/etc/init.d/ambari-server", "restart");
-		p.command("/bin/bash", "/usr/local/amstore-daemon/ambari-restarter.sh");
+		p.command("/bin/bash", "/usr/lib/amstore-daemon/ambari-restarter.sh");
 		p.redirectOutput(Redirect.appendTo(new File(
 				"/var/log/amstore-daemon.log")));
 		p.redirectErrorStream(true);

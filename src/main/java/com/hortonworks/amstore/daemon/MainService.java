@@ -1,7 +1,7 @@
 package com.hortonworks.amstore.daemon;
 
 public class MainService {
-    public final String defaultHost = "0.0.0.0";
+    public final String defaultHost = "localhost";
     public final String defaultPort = "5026";
 
     protected String host = defaultHost;
